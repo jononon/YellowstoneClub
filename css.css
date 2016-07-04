@@ -1,0 +1,18 @@
+body {
+    font-family:'Roboto', sans-serif;
+    background-color: rgb(235, 229, 207);
+}
+
+iframe {
+  border: none;
+}
+
+#title {
+  font-size: 3vw;
+  font-weight: bold;
+}
+
+#time {
+  font-size: 3vw;
+  text-align: right;
+}

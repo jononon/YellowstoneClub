@@ -1,0 +1,108 @@
+<head>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="js.js"></script>
+    <link rel="stylesheet" type="text/css" href="css.css">
+    <meta http-equiv="refresh" content="1200">
+</head>
+
+<body>
+    <div>
+        <div id=title style="width:60%; height:10%; float:left;"></div>
+        <div id=time style="width:40%; height:10%; float:right;"></div>
+    </div>
+    <div>
+        <div id=iHW_today style="width:40%; height:90%; float:left;"><iframe src="http://ihwapp.com/today/u" width="100%" height="100%"></iframe></div>
+        <div style="width:60%; height:90%; float:right;">
+          <div id=map style="width:100%; height:50%;">
+            <script>
+              function initMap() {
+                var center = {lat: 34.1014384, lng: -118.4266919};
+                // Create a map object and specify the DOM element for display.
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  center: center,
+                  mapTypeControl: false,
+                  mapTypeID: google.maps.MapTypeId.ROADMAP,
+                  scrollwheel: false,
+                  draggable: false,
+                  zoomControl: false,
+                  streetViewControl: false,
+                  zoom: 11
+                });
+
+                var traffic = new google.maps.TrafficLayer({
+                  map: map,
+                });
+
+                var directionsService = new google.maps.DirectionsService;
+                var HWUS      = {lat: 34.1394903, lng: -118.4150432};
+                var HWMS      = {lat: 34.0885966, lng: -118.4356582};
+                var DJ_MOM    = {lat: 34.1452844, lng: -118.4401267};
+                var DJ_DAD    = {lat: 34.1694104, lng: -118.3957387};
+                var JONATHAN  = {lat: 34.0481214, lng: -118.5060167};
+
+                directionsService.route({
+                  origin: HWUS,
+                  destination: HWMS,
+                  travelMode: google.maps.TravelMode.DRIVING
+                }, function(response, status) {
+                  if (status === google.maps.DirectionsStatus.OK) {
+                    $('#traveltime_MS').append('To Middle School: ' + response.routes[0].legs[0].duration.text);
+                  } else {
+                    $('#traveltime_MS').append('Directions request failed due to ' + status);
+                  }
+                });
+                directionsService.route({
+                  origin: HWUS,
+                  destination: DJ_MOM,
+                  travelMode: google.maps.TravelMode.DRIVING
+                }, function(response, status) {
+                  if (status === google.maps.DirectionsStatus.OK) {
+                    $('#traveltime_DJ_MOM').append('To DJ\'s House (Roblar): ' + response.routes[0].legs[0].duration.text);
+                  } else {
+                    $('#traveltime_DJ_MOM').append('Directions request failed due to ' + status);
+                  }
+                });
+                directionsService.route({
+                  origin: HWUS,
+                  destination: DJ_DAD,
+                  travelMode: google.maps.TravelMode.DRIVING
+                }, function(response, status) {
+                  if (status === google.maps.DirectionsStatus.OK) {
+                    $('#traveltime_DJ_DAD').append('To DJ\'s House (Gentry): ' + response.routes[0].legs[0].duration.text);
+                  } else {
+                    $('#traveltime_DJ_DAD').append('Directions request failed due to ' + status);
+                  }
+                });
+                directionsService.route({
+                  origin: HWUS,
+                  destination: JONATHAN,
+                  travelMode: google.maps.TravelMode.DRIVING
+                }, function(response, status) {
+                  if (status === google.maps.DirectionsStatus.OK) {
+                    $('#traveltime_JONATHAN').append('To Jonathan\'s House: ' + response.routes[0].legs[0].duration.text);
+                  } else {
+                    $('#traveltime_JONATHAN').append('Directions request failed due to ' + status);
+                  }
+                });
+              }
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcmscSUENKMTKPgTTX9982lWLuFn2DqC0&callback=initMap"
+              async defer></script>
+          </div>
+          <div id=traffic style="width:100%; height:7.5%;">
+            <div style="width:50%; height:100%; float:left;">
+              <div id=traveltime_DJ_MOM></div>
+              <div id=traveltime_DJ_DAD></div>
+            </div>
+            <div style="width:50%; height:100%; float:right; text-align:right;">
+              <div id=traveltime_MS></div>
+              <div id=traveltime_JONATHAN></div>
+            </div>
+          </div>
+          <div id=cal style="width:100%; height:42%;">
+            <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=200&amp;wkst=1&amp;hl=en_GB&amp;bgcolor=%23ffffff&amp;src=cp694038kji1kh2vr9hoq1um51j65rah%40import.calendar.google.com&amp;color=%23A32929&amp;src=4i0f698grjuue3oveuef2lpqd0elmkil%40import.calendar.google.com&amp;color=%2329527A&amp;src=lt91073nb8susdt0s7s5qk6cfdhmureq%40import.calendar.google.com&amp;color=%2329527A&amp;src=9oqte8ba2lu0u2kc7j68v2kbikucc423%40import.calendar.google.com&amp;color=%235F6B02&amp;ctz=America%2FLos_Angeles" style="border-width:0" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
+          </div>
+        </div>
+    </div>
+</body>
